@@ -1,9 +1,9 @@
 ﻿
+using Innovt.Domain.Core.Repository;
+
 namespace SmartphonesApi.Domain.Smartphone
 {
-    public interface ISmartphoneRepository
+    public interface ISmartphoneRepository : IRepository<Smartphone>
     {
-        Task<Smartphone> GetBy(Guid id, CancellationToken cancellationToken);
-        Task Save(Smartphone smartphone, CancellationToken cancellationToken = default);
     }
 }

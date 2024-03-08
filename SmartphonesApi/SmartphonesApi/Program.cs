@@ -1,4 +1,5 @@
-using Microsoft.EntityFrameworkCore;
+using Innovt.Data.DataSources;
+using Innovt.Domain.Core.Repository;
 using SmartphonesApi.Domain.Smartphone;
 using SmartphonesApi.Platform.Application.Smartphone;
 using SmartphonesApi.Platform.Infrastructure.Database.Context;
@@ -15,9 +16,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<ISmartphoneAppService, SmartphoneAppService>();
 builder.Services.AddTransient<ISmartphoneRepository, SmartphoneRepository>();
-
-var connectionString = builder.Configuration.GetConnectionString("ApiConnectionString");
-builder.Services.AddDbContext<DataContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+builder.Services.AddTransient<IExtendedUnitOfWork, DataContext>();
+builder.Services.AddTransient<IDataSource>(_ => new DefaultDataSource(builder.Configuration, "ApiConnectionString", Innovt.Data.Model.Provider.PostgreSqL));
 
 var app = builder.Build();
 

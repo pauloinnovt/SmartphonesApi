@@ -11,7 +11,7 @@ namespace SmartphonesApi.Platform.Application.Smartphone.Commands
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (string.IsNullOrWhiteSpace(Name) || string.IsNullOrWhiteSpace(Brand))
-                yield return new ValidationResult(nameof(Brand), new[] { nameof(Name) });
+                yield return new ValidationResult(nameof(Brand), [nameof(Name)]);
         }
     }
 }

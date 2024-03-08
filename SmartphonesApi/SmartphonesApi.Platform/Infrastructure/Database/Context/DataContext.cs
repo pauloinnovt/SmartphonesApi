@@ -1,9 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Innovt.Data.DataSources;
+using Innovt.Data.EFCore.PostgreSQL;
+using Microsoft.EntityFrameworkCore;
 
 namespace SmartphonesApi.Platform.Infrastructure.Database.Context
 {
-    public class DataContext(DbContextOptions options) : DbContext(options)
+    public class DataContext(IDataSource dataSource) : DBContext(dataSource)
     {
-        public DbSet<Domain.Smartphone.Smartphone> Smartphones { get; set; }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+            => optionsBuilder.UseNpgsql("Host=localhost; Database=testEf8; Username=postgres; Password=root");
     }
 }
