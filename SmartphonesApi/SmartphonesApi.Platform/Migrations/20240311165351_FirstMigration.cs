@@ -6,30 +6,25 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SmartphonesApi.Platform.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class FirstMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterDatabase()
-                .Annotation("MySql:CharSet", "utf8mb4");
-
             migrationBuilder.CreateTable(
                 name: "Smartphones",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
-                    Name = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Brand = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Storage = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: true),
+                    Brand = table.Column<string>(type: "text", nullable: true),
+                    Storage = table.Column<int>(type: "integer", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Smartphones", x => x.Id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                });
         }
 
         /// <inheritdoc />

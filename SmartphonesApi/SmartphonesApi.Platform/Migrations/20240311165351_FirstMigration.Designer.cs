@@ -2,9 +2,9 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SmartphonesApi.Platform.Infrastructure.Database.Context;
 
 #nullable disable
@@ -12,8 +12,8 @@ using SmartphonesApi.Platform.Infrastructure.Database.Context;
 namespace SmartphonesApi.Platform.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240306202807_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240311165351_FirstMigration")]
+    partial class FirstMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,26 +21,27 @@ namespace SmartphonesApi.Platform.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.2")
-                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("SmartphonesApi.Domain.Smartphone.Smartphone", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Brand")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset?>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("text");
 
                     b.Property<int>("Storage")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 

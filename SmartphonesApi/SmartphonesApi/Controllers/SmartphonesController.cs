@@ -21,7 +21,6 @@ namespace SmartphonesApi.Controllers
             return Ok(result);
         }
 
-        //TODO Alterar para filter ao invés do command
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> Get(GetSmartphoneByIdViewModel viewModel, CancellationToken cancellationToken = default)
         {
